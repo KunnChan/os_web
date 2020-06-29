@@ -13,7 +13,7 @@ and run main class [OnlineShoppingApplication.java]
 
 ### Steps to run
 You can run in multiple methods.
-###1 - Import to your IDE method
+### 1 - Import to your IDE method
  1. Download and Extract
  2. Import to your IDE [I am using Intellij]
  3. open application.properties file and edit your MySql user name and password
@@ -21,7 +21,7 @@ You can run in multiple methods.
  5. Run command => mvn clean install
  6. Run  [OnlineShoppingApplication.java]
 
-###2 - Run with terminal
+### 2 - Run with terminal
  1. Download and Extract
  2. Open Terminal and navigate to project folder
  3. open application.properties file and edit your MySql user name and password
