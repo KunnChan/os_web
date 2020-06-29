@@ -1,4 +1,5 @@
-#### Online Shopping System
+[![CircleCI](https://circleci.com/gh/KunnChan/os_web.svg?style=svg)](https://circleci.com/gh/KunnChan/os_web)
+### Online Shopping System
 
  by Min Kunn Chan, May 8 2020, 48 hours challenge
 
