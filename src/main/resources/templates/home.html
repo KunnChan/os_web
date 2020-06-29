@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/layout :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="hold-transition fixed">
+
+	<div th:replace="fragments/layout :: header"></div>
+			<section class="container">
+				<h3>Products</h3>
+				<div class="row" id="products">
+
+				</div>
+
+				<div class="text-center mt-3">
+					<button type="button" id="btnLoad" class="btn btn-outline-success">Load More Product</button>
+				</div>
+
+			</section>
+		<div th:replace="fragments/layout :: footer"></div>
+	</div>
+	<script type="text/javascript">
+
+		var formData = {
+			page: {
+				page : 0,
+				size : 12
+			}
+		}
+		loadData(formData);
+
+		function append(parent, el) {
+			return parent.appendChild(el);
+		}
+		const productsDom = document.getElementById('products');
+		$("#btnLoad").click(function(){
+			formData.page.page +=1;
+			loadData(formData);
+		});
+
+	function loadData(param){
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "/product/filter",
+			data : JSON.stringify(param),
+			dataType : 'json',
+			success : function(result) {
+				var datas = result.content;
+				datas.map(function(data) {
+					var card = document.createElement("div");
+					card.classList.add("col-3");
+					card.innerHTML = `<a class="card" href="/product/${data.id}">
+										<img src="${data.imageUrl}" class="card-img-top" alt="product">
+										<div class="card-body">
+											<h5 class="card-title">${data.title}</h5>
+											<p class="card-text">$ ${data.price}</p>
+										</div>
+									</a>`;
+					append(productsDom, card);
+				  })
+			},
+			error : function(e) {
+				alert("Error on post to api");
+				console.log("ERROR: ", e);
+			}
+		});
+	}
+
+	</script>
+</body>
+</html>

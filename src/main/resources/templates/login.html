@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en" th:replace="fragments/layout :: head">
+</head>
+<body class="container">
+
+  <h2>Stacktech online shopping</h2>
+  <h4>Sign in</h4>
+
+  <form th:action="@{/login}" method="POST" style="width : 60%">
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" class="form-control" placeholder="Password">
+      </div>
+      <div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid</p>
+			</div>
+      <div class="form-group">
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+      </div>
+  </form>
+
+
+</body>
+</html>

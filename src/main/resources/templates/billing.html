@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/layout :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="hold-transition fixed">
+
+	<div th:replace="fragments/layout :: header"></div>
+		<div class="container">
+			<h3>Checkout</h3>
+
+			<hr/>
+			<h5>Add Payment</h5>
+			<form th:object="${payment}" th:action="@{/order/save}" th:method="post" >
+				<input type="hidden" th:field="*{id}"/>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputMethod">Method</label>
+						<select id="inputMethod" th:field="*{cardType}" class="form-control">
+							<option value="VISA">VISA</option>
+							<option value="MASTER_CARD">MASTER CARD</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="fullName">Card No</label>
+						<input type="number" th:field="*{cardNo}" class="form-control" id="fullName">
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Place Order</button>
+			</form>
+		</div>
+		<div th:replace="fragments/layout :: footer"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/layout :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="hold-transition fixed">
+
+	<div th:replace="fragments/layout :: header"></div>
+		<div class="container">
+			<h3>Shopping Cart</h3>
+
+			<div class="row no-gutters">
+				<div class="col-md-10"></div>
+				<div class="col-md-2"><strong>Price</strong></div>
+			</div>
+			<div th:if="${not #lists.isEmpty(products)}">
+				<div class="card mb-3" th:each="product : ${products}">
+					<div class="row no-gutters">
+						<div class="col-md-2">
+							<img th:src="${product.imageUrl}" class="card-img" alt="productDetail">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${product.title}">Card title</h5>
+								<div class="col-md-4 mb-3" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Qty</span>
+										</div>
+										<input type="number" th:id="${product.id}" th:onchange="|onChange('${product.id}')|" th:value="${product.qty}" class="form-control"required>
+									</div>
+								</div>
+
+								<button th:onclick="|onDelete('${product.id}')|" class="btn btn-link">Delete</button>
+							</div>
+						</div>
+						<div class="col-md-2">
+							$ <strong class="text-muted" th:text="${product.price}">20.5</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row no-gutters">
+				<div class="col-md-10 text-right"><strong>Sub Total (<span th:text="${count}"></span> Items) : </strong></div>
+				<div class="col-md-2">$ <strong th:text="${subTotal}">50.2</strong></div>
+			</div>
+			<hr/>
+			<div class="text-right">
+				<a class="btn btn-primary" th:href="@{/checkout}">Proceed to Checkout</a>
+			</div>
+		</div>
+		<div th:replace="fragments/layout :: footer"></div>
+	</div>
+
+	<script type="text/javascript">
+
+	function onChange(productId){
+		var txtQty = $("#"+productId).val();
+		if(!txtQty || txtQty < 1){
+			alert("Qty can not less than 1!");
+			return;
+		}
+		console.log("productId ", productId, txtQty);
+		$.ajax({
+            type : "PUT",
+            url : "/cart/update/"+productId+"/qty/"+txtQty,
+            success: function(result){
+                window.location.href = "/cart";
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+	}
+	function onDelete(productId){
+        $.ajax({
+            type : "DELETE",
+            url : "/cart/delete/"+productId,
+            success: function(result){
+                alert("Delete from cart successful!");
+                window.location.href = "/cart";
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+	</script>
+</body>
+</html>

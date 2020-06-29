@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/layout :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="hold-transition fixed">
+
+	<div th:replace="fragments/layout :: header"></div>
+		<div class="container">
+			<h3>Order Detail</h3>
+
+			<h5>Order number: <strong th:text="${order.id}">D01-9354078-6342600</strong></h5>
+			<h5>Order Total: $<strong th:text="${order.orderTotal}">2.99</strong></h5>
+
+			<div class="row no-gutters">
+				<div class="col-md-10"></div>
+				<div class="col-md-2"><strong>Price</strong></div>
+			</div>
+			<div th:if="${not #lists.isEmpty(products)}">
+				<div class="card mb-3" th:each="product : ${products}">
+					<div class="row no-gutters">
+						<div class="col-md-2">
+							<img th:src="${product.imageUrl}" class="card-img" alt="productDetail">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${product.title}">Card title</h5>
+								<h5>Qty : <strong th:text="${product.qty}">1</strong></h5>
+
+							</div>
+						</div>
+						<div class="col-md-2">
+							$<strong class="text-muted" th:text="${product.price}">$20.5</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row no-gutters">
+				<div class="col-md-10 text-right"><strong>Sub Total (<span th:text="${order.qty}"></span> Items) : </strong></div>
+				<div class="col-md-2">$<strong th:text="${order.orderTotal}">50.2</strong></div>
+			</div>
+			<div class="card">
+				<div class="card-header">
+					Payment Information
+				</div>
+				<div class="card-body">
+					<h5>Payment method</h5>
+					<span th:text="${order.payment.cardType}">Visa</span>
+					 card No : <span th:text="${order.payment.cardNo}">0895</span>
+					<h5>Billing address</h5>
+					<span th:text="${address}">
+						Min Kunn Chan 98680039
+					</span>
+				</div>
+			</div>
+			<hr/>
+		</div>
+		<div th:replace="fragments/layout :: footer"></div>
+	</div>
+</body>
+</html>

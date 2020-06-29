@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/layout :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="hold-transition fixed">
+
+	<div th:replace="fragments/layout :: header"></div>
+		<div class="container">
+			<h3>Your Orders</h3>
+
+			<table class="table">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Order ID</th>
+					<th scope="col">Total</th>
+					<th scope="col">Date</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+				</thead>
+				<tbody th:if="${not #lists.isEmpty(orders)}">
+				<tr th:each="order,iter : ${orders}">
+					<th scope="row" th:text="${iter.count}">1</th>
+					<td th:text="${order.id}">34</td>
+					<td>$ <strong th:text="${order.orderTotal}">20</strong></td>
+					<td th:text="${order.createdDate}">13/12/2019</td>
+					<td th:text="${order.orderState}">Done</td>
+					<td><a th:href="@{'/order-detail/' + ${order.id}}">Order details</a></td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<div th:replace="fragments/layout :: footer"></div>
+	</div>
+</body>
+</html>
