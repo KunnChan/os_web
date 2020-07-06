@@ -99,6 +99,16 @@ public class OrderServiceImpl implements OrderService {
         return toProductDto(products, order.getOrderDetails());
     }
 
+    @Override
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public void deleteOrderByOrder(Order order) {
+        orderRepository.delete(order);
+    }
+
     private List<ProductDto> toProductDto(List<Product> products, Set<OrderDetail> orderDetails){
         List<ProductDto> list = new ArrayList<>();
         ProductDto dto;
